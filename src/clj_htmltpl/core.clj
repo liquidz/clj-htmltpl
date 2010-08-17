@@ -12,6 +12,7 @@
 (def *doc-type*
   {"xhtml" "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
    "html5" "<!DOCTYPE html>"
+   "no" ""
    }
   )
 
@@ -109,7 +110,7 @@
     )
   )
 
-(defn combine-template [base-tpl & more]
+(defn bind [base-tpl & more]
   (fn [& args]
     (apply base-tpl (apply-args-to-template more args))
     )
@@ -148,13 +149,30 @@
   [:div#main [:h1 "hoge - " title] #_(ul list-data)]
   )
 
+(defnk test-footer [:name ""]
+  [:p name]
+  )
+
+(defnk test-link [:name "" :href ""]
+  [:a {:href href} name]
+  )
+
+(defnk test-tag [:name "" :attr {} :text ""] [(keyword name) attr text])
+
+;(defmacro add-tpl-param [base bindings])
+;
+;(add-tpl-param test-tag [:href ""] :attr {:href href})
+
 (defn main [& args]
   (let [data {:title "hello" :list-data [1 2 3]}
-        top (combine-template layout :head [title meta-script meta-style] :body index)
+        top (bind layout :head [meta-script meta-style] :body index)
         ]
     (println
       ;(render layout data :head [title meta-script meta-style] :body index)
-      (render top data)
+      ;(render top data)
+      ;(render (bind test-footer :name test-link) {:name "hoge" :href "www.nifty.com"})
+      ;(render layout {:title "hoge" :name "neko"} :body [test-footer (bind test-link :name "inu")])
+      nil
       )
     )
   )
