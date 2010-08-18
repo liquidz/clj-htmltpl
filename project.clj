@@ -1,5 +1,5 @@
-(defproject clj-htmltpl "1.0.0-SNAPSHOT"
-  :description "FIXME: write"
+(defproject clj-htmltpl "0.0.1"
+  :description "functional html template engine"
   :dependencies [
                  [org.clojure/clojure "1.1.0"]
                  [org.clojure/clojure-contrib "1.1.0"]
