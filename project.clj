@@ -1,4 +1,5 @@
-(defproject clj-htmltpl "0.0.1"
+(defproject
+  org.clojars.liquidz/clj-htmltpl "0.0.1"
   :description "functional html template engine"
   :dependencies [
                  [org.clojure/clojure "1.1.0"]
