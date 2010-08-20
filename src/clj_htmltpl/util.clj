@@ -81,3 +81,20 @@
     ]
    ]
   )
+
+(defn- str-split-at [n s] (map #(apply str %) (split-at n s)))
+(defnk string->link [s :url-reg #"(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)"
+                     :link-fn #(identity [:a {:href %} %])]
+  (loop [urls (map first (re-seq url-reg s)), rest-str s, res ()]
+    (if (empty? urls) (concat res (list rest-str))
+      (let [idx (.indexOf rest-str (first urls))
+            tmp (str-split-at idx rest-str)]
+        (recur (rest urls)
+               (su2/drop (second tmp) (-> urls first count))
+               (concat res (list (first tmp) (-> urls first link-fn)))
+               )
+        )
+      )
+    )
+  )
+
